@@ -2,7 +2,7 @@ import React from 'react'
 import { Animated, Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 function AndroidPrompt(props, ref) {
-    const onCancelPress = props;
+    const {onCancelPress} = props;
     const [_visible, _setVisible] = React.useState(false);
     const [visible, setVisible] = React.useState(false);
     const [hintText, setHintText] = React.useState('');
@@ -52,18 +52,20 @@ function AndroidPrompt(props, ref) {
     };
 
     return (
-    <Modal visible={visible} transparent={true}>
+    <Modal visible={_visible} transparent={true}>
         <View style={styles.content}>
             <Animated.View style={[styles.backdrop, StyleSheet.absoluteFill, backdropAnimStyle]} />
 
             <Animated.View style={[styles.prompt, promptAnimStyle]}>
                 <Text style={styles.hint}>{hintText || 'Hello NFC'}</Text>
 
-                <TouchableOpacity style={styles.btn} onPress={() => {
-                    _setVisible(false); 
-                    onCancelPress();}}
+                <TouchableOpacity style={styles.btn} 
+                    onPress={() => {
+                        _setVisible(false); 
+                        onCancelPress();
+                    }}
                 >
-                    <Text>CANCEL</Text> 
+                    <Text>CANCEL</Text>
                 </TouchableOpacity>
             </Animated.View> 
         </View>
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 20,
         width: Dimensions.get('window').width - 2 * 20,
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         borderRadius: 8,
         paddingVertical: 60,
         paddingHorizontal: 20,
