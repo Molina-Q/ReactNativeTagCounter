@@ -19,7 +19,7 @@ function Game(props) {
                 nfcManager.setAlertMessageIOS(`${count}...`);
             }
             
-            if (count < 0) {
+            if (count <= 0) {
                 nfcManager.unregisterTagEvent().catch(() => 0);
                 setDuration(new Date().getTime() - start.getTime());
 
@@ -54,7 +54,7 @@ function Game(props) {
             </TouchableOpacity>
             <AndroidPrompt ref={androidPromptRef} 
                 onCancelPress={() => {
-                    nfcManager.unregisterTagEvent().catch(() => 1)
+                    nfcManager.unregisterTagEvent().catch(() => 0);
                 }} 
             />
         </View>
