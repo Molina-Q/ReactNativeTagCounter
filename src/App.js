@@ -1,10 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, Touchable, TouchableOpacity, View} from 'react-native';
 import nfcManager from 'react-native-nfc-manager';
 import Game from './Game';
+import AndroidPrompt from './AndroidPrompt';
 
 function App(props) {
     const [hasNfc, setHasNfc] = React.useState(null);
+    const promptRef = React.useRef();
 
     React.useEffect(() => {
         async function checkNfc() {
@@ -25,6 +27,13 @@ function App(props) {
         return (
             <View style={styles.wrapper}>
                 <Text>Your device doesn't support NFC</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        promptRef.current.setVisible(true);
+                    }}
+                >
+                    <AndroidPrompt ref={promptRef}/> 
+                </TouchableOpacity>
             </View>
         );
         
@@ -33,7 +42,7 @@ function App(props) {
    return <Game />;
 }
 
-const styles = StyleSheet({
+const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
         alignItems: 'center',
